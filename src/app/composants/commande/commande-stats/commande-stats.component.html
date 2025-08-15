@@ -1,0 +1,124 @@
+<div class="container my-4">
+  <h2 class="mb-4 text-center">Statistiques des Commandes</h2>
+
+<form [formGroup]="form" (ngSubmit)="rechercherStats()" class="row g-3 align-items-end mb-5">
+  <div class="col-md-4">
+    <label for="startDate" class="form-label">Date de début</label>
+    <input id="startDate" type="date" class="form-control" formControlName="startDate" />
+  </div>
+  <div class="col-md-4">
+    <label for="endDate" class="form-label">Date de fin</label>
+    <input id="endDate" type="date" class="form-control" formControlName="endDate" />
+  </div>
+  <div class="col-md-4 d-grid">
+    <button type="submit" class="btn btn-primary btn-lg w-100">Rechercher</button>
+  </div>
+</form>
+
+
+  <div *ngIf="stats" class="mb-5">
+    <div class="row g-4 text-white text-center">
+      <div class="col-6 col-md-3 bg-primary rounded p-3">
+        <h5>Total Ventes</h5>
+        <p class="display-6">{{ stats.totalVentes | number:'1.0-0' }} F CFA</p>
+      </div>
+      <div class="col-6 col-md-3 bg-danger rounded p-3">
+        <h5>Total Coûts</h5>
+        <p class="display-6">{{ stats.totalCout | number:'1.0-0' }} F CFA</p>
+      </div>
+      <div class="col-6 col-md-3 bg-success rounded p-3">
+        <h5>Bénéfice Total</h5>
+        <p class="display-6">{{ stats.beneficeTotal | number:'1.0-0' }} F CFA</p>
+      </div>
+      <div class="col-6 col-md-3 bg-info rounded p-3">
+        <h5>Commandes Livrées</h5>
+        <p class="display-6">{{ stats.montantLivrees | number:'1.0-0' }} F CFA</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row gy-5">
+    <!-- Bar Chart Ventes et Coûts -->
+    <div class="col-lg-8">
+      <h4 class="mb-3 text-center">Évolution des Ventes et Coûts par jour</h4>
+      <canvas baseChart
+        [data]="barChartData"
+        [type]="barChartType"
+        [options]="barChartOptions"
+        style="max-height: 400px;">
+      </canvas>
+    </div>
+
+    <!-- Line Chart Bénéfices -->
+    <div class="col-lg-4">
+      <h4 class="mb-3 text-center">Évolution du Bénéfice</h4>
+      <canvas baseChart
+        [data]="lineChartData"
+        [type]="lineChartType"
+        [options]="lineChartOptions"
+        style="max-height: 400px;">
+      </canvas>
+    </div>
+
+    <!-- Pie Chart répartition Bénéfice / Coûts -->
+    <div class="col-lg-6 mx-auto mt-5">
+      <h4 class="mb-3 text-center">Répartition Bénéfice vs Coûts</h4>
+      <canvas baseChart
+        [data]="pieChartData"
+        [type]="pieChartType"
+        [options]="pieChartOptions"
+        style="max-height: 350px;">
+      </canvas>
+    </div>
+  </div>
+
+  <!-- Tableau des bénéfices par jour -->
+  <div *ngIf="stats?.statsParJour" class="mt-5">
+    <h4>Bénéfices par jour</h4>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Date</th>
+            <th class="text-end">Total Ventes (F CFA)</th>
+            <th class="text-end">Total Coûts (F CFA)</th>
+            <th class="text-end">Bénéfice (F CFA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of stats.statsParJour">
+            <td>{{ item.dateCommande | date: 'dd/MM/yyyy' }}</td>
+            <td class="text-end">{{ item.totalVentes | number: '1.0-0' }}</td>
+            <td class="text-end">{{ item.totalCout | number: '1.0-0' }}</td>
+            <td class="text-end">{{ item.benefice | number: '1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Commandes Non Livrées Anciennes -->
+  <div *ngIf="nonLivreesAnciennes && nonLivreesAnciennes.length > 0" class="mt-5">
+    <h4>Commandes non livrées anciennes</h4>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Client</th>
+            <th>Date commande</th>
+            <th>Statut</th>
+            <th class="text-end">Prix Total (F CFA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cmd of nonLivreesAnciennes">
+            <td>{{ cmd.client?.nom }} {{ cmd.client?.prenom }}</td>
+            <td>{{ cmd.dateCommande | date:'dd/MM/yyyy' }}</td>
+            <td><span class="badge bg-warning text-dark">{{ cmd.statut }}</span></td>
+            <td class="text-end">{{ cmd.prixTotal | number:'1.0-0' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

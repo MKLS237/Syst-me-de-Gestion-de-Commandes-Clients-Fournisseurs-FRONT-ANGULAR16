@@ -1,0 +1,87 @@
+<div class="container mt-4">
+    <h1><u><strong>Liste des clients</strong> </u></h1>
+  <form class="mb-3">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <label for="search" class="form-label">Recherche :</label>
+        <input
+          type="text"
+          id="search"
+          class="form-control"
+          [(ngModel)]="searchTerm"
+          name="searchTerm"
+          (ngModelChange)="onSearchChange()"
+          placeholder="Rechercher un client..."
+        />
+      </div>
+    </div>
+  </form>
+      <!-- Boutons à droite -->
+        <div class="d-flex justify-content-end mb-3 gap-2">
+          <button class="btn btn-warning"><i class="bi bi-upload me-1"></i>Importer</button>
+          <button class="btn btn-success"><i class="bi bi-download me-1"></i>Exporter</button>
+          <button class="btn btn-primary" (click)="addClient()"><i class="bi bi-plus-lg me-1"></i>Ajouter</button>
+        </div>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Email</th>
+        <th>Téléphone</th>
+        <th>Prix total d'achat</th>
+        <th>Actions</th> <!-- ✅ Colonne actions -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of pagedClients; let i = index">
+        <td>{{ (page - 1) * pageSize + i + 1 }}</td>
+        <td>{{ client.nom }}</td>
+        <td>{{ client.prenom }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.telephone }}</td>
+        <td>{{ client.prixAchatTotal | currency:'XAF' }}</td>
+        <td>
+          <!-- ✅ Boutons d'action -->
+          <button class="btn btn-sm btn-outline-primary me-1" (click)="viewClient(client.id!)">
+            <i class="bi bi-eye"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-success me-1" (click)="editClient(client.id!)">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteClient(client.id!)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="pagedClients.length === 0">
+        <td colspan="7" class="text-center">Aucun client trouvé.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <nav>
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="page === 1">
+          <button class="page-link" (click)="page = page - 1" [disabled]="page === 1">Précédent</button>
+        </li>
+        <li class="page-item disabled">
+          <span class="page-link">{{ page }}</span>
+        </li>
+        <li class="page-item" [class.disabled]="page * pageSize >= filteredClients.length">
+          <button class="page-link" (click)="page = page + 1" [disabled]="page * pageSize >= filteredClients.length">Suivant</button>
+        </li>
+      </ul>
+    </nav>
+
+    <select class="form-select w-auto" [(ngModel)]="pageSize" name="pageSize" (change)="onSearchChange()">
+      <option [ngValue]="5">5 par page</option>
+      <option [ngValue]="10">10 par page</option>
+      <option [ngValue]="20">20 par page</option>
+    </select>
+  </div>
+</div>
+

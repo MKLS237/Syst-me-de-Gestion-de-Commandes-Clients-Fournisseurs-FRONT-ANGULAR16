@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <h2><u><strong>Ajouter une commande</strong></u></h2>
+
+  <form (ngSubmit)="saveCommande()">
+    <div class="mb-3">
+      <label for="client" class="form-label">Client :</label>
+      <select id="client" class="form-select" [(ngModel)]="selectedClientId" name="client" required>
+        <option [ngValue]="null">-- Choisir un client --</option>
+        <option *ngFor="let client of clients" [ngValue]="client.id">
+          {{ client.nom }} {{ client.prenom }} ({{ client.email }})
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Désignation :</label>
+      <input type="text" class="form-control" [(ngModel)]="newCommande.designation" name="designation" required>
+    </div>
+
+  <div class="row">
+  <div class="col-md-4 mb-3">
+    <label class="form-label">Quantité :</label>
+    <input type="number" class="form-control" [(ngModel)]="newCommande.quantite" name="quantite" min="1" required>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label class="form-label">Prix unitaire :</label>
+    <input type="number" class="form-control" [(ngModel)]="newCommande.prixUnitaire" name="prixUnitaire" min="0" required>
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label class="form-label">Statut :</label>
+    <select class="form-select" [(ngModel)]="newCommande.statut" name="statut" required>
+      <option value="LIVREE">livré</option>
+      <option value="NON_LIVREE">NON livré</option>
+      <option value="LIVREE_PARTIELLEMENT">livré partiellement</option>
+    </select>
+  </div>
+</div>
+    <div class="col-md-3 mb-3">
+      <label class="form-label">Date de livraison (optionnelle) :</label>
+      <input type="date" class="form-control" [(ngModel)]="newCommande.dateLivraison" name="dateLivraison">
+    </div>
+
+    <button type="submit" class="btn btn-primary m-1"> <i class="bi bi-save me-1"></i>Enregistrer</button>
+    <button type="button" class="btn btn-danger m-2" (click)="cancel()">
+        <i class="bi bi-x-circle me-1"></i>Annuler
+      </button>
+  </form>
+</div>

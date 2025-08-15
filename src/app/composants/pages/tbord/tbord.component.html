@@ -1,0 +1,75 @@
+<div class="dashboard-container container my-4">
+  <!-- Titre principal -->
+  <h2 class="dashboard-title text-center mb-5">Tableau de Bord </h2>
+
+  <div class="row g-4">
+    <!-- Statistiques principales -->
+    <div class="col-6 col-md-2" *ngFor="let stat of stats">
+      <div class="stat-card shadow-sm text-center">
+        <i [class]="stat.icon + ' stat-icon'"></i>
+        <h6 class="stat-title">{{ stat.title }}</h6>
+        <p class="stat-value">{{ stat.value }}</p>
+      </div>
+    </div>
+
+    <!-- Livraison cercle -->
+    <div class="col-md-4">
+      <div class="card delivery-card shadow-sm text-center p-4">
+        <h5 class="text-success mb-3">Livraison effective</h5>
+        <div class="progress-circle">
+          <svg width="120" height="120">
+            <circle r="50" cx="60" cy="60" stroke="#e6e6e6" stroke-width="12" fill="none" />
+            <circle r="50" cx="60" cy="60"
+              [attr.stroke-dasharray]="circumference"
+              [attr.stroke-dashoffset]="circumference * (1 - deliveryPercent / 100)"
+              stroke="#28a745" stroke-width="12" fill="none"
+              transform="rotate(-90 60 60)" />
+          </svg>
+          <div class="circle-text">{{ deliveryPercent }}%</div>
+        </div>
+        <p class="text-danger mt-3">Non livrées : {{ livraisonStats.livraisonsNonEffectuees }}</p>
+        <p class="text-success">Effectuées : {{ livraisonStats.livraisonsEffectuees }}</p>
+      </div>
+    </div>
+
+    <!-- Graphique des ventes -->
+    <div class="col-md-8">
+      <div class="card shadow-sm p-4">
+        <h5 class="mb-3">Graphique des ventes</h5>
+        <canvas id="barChart" height="280"></canvas>
+      </div>
+    </div>
+
+    <!-- Graphique évolution -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <h5 class="mb-3">Évolution des Commandes et Factures</h5>
+        <canvas id="lineChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Graphique Doughnut -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-4">
+        <h5 class="mb-3">Répartition des livraisons</h5>
+        <canvas id="doughnutChart" height="200"></canvas>
+      </div>
+    </div>
+
+    <!-- Clients fidèles -->
+    <div class="col-md-4">
+      <div class="card shadow-sm p-4">
+        <h5 class="mb-3">Les clients fidèles</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex align-items-center" *ngFor="let client of bestClients">
+            <img src="https://via.placeholder.com/40" class="rounded-circle me-3" />
+            <div>
+              <strong>{{ client.name }}</strong><br />
+              <small>{{ client.total | currency:'XAF' }}</small>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

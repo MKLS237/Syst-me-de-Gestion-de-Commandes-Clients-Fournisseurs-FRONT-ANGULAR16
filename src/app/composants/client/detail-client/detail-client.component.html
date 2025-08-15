@@ -1,0 +1,69 @@
+<div class="container mt-4">
+  <h3 class="text-center">Info Client</h3>
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <p><strong>Nom :</strong> {{ client.nom }}</p>
+      <p><strong>Numéro téléphone :</strong> {{ client.telephone }}</p>
+    </div>
+    <div class="col-md-6">
+      <p><strong>Prénom :</strong> {{ client.prenom }}</p>
+      <p><strong>Email :</strong> {{ client.email }}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Commandes -->
+    <div class="col-md-6">
+      <h5>Info Commandes</h5>
+      <table class="table table-bordered table-sm">
+        <thead class="table-secondary">
+          <tr>
+            <th>#</th>
+            <th>Date Cmd</th>
+            <th>Qté</th>
+            <th>Prix de vente</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cmd of commandes; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ cmd.dateCommande | date:'dd/MM/yyyy' }}</td>
+            <td>{{ cmd.quantite }}</td>
+             <td>{{cmd.prixUnitaire }}</td>
+            <td>{{ cmd.statut }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Factures -->
+    <div class="col-md-6">
+      <h5>Info Factures</h5>
+      <table class="table table-bordered table-sm">
+        <thead class="table-secondary">
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Commande #</th>
+            <th>Prix</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let facture of factures; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ facture.dateFacture| date:'dd/MM/yyyy' }}</td>
+            <td>{{ facture.commande.id }}</td>
+            <td>{{ facture.montantTotal }} FCFA</td>
+            <td>{{ facture.statut }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+ 
+</div>
+  <button type="button" class="btn btn-danger mt-5" (click)="cancel()">
+        <i class="bi bi-x-circle me-1"></i>Retour vers la liste des clients
+      </button>

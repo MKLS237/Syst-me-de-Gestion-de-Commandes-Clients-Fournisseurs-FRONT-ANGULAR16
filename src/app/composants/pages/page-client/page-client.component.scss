@@ -1,0 +1,221 @@
+// Container général
+.container {
+  margin-top: 1.5rem;
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-decoration: underline;
+  }
+
+  // Formulaire de recherche
+  form.mb-3 {
+    .form-label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    input.form-control {
+      border-radius: 6px;
+      border: 1.5px solid #ced4da;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.5);
+        outline: none;
+      }
+    }
+  }
+
+  // Conteneur boutons d'actions
+  .d-flex.justify-content-end.mb-3 {
+    gap: 0.75rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.95rem;
+      transition: background-color 0.3s, box-shadow 0.3s;
+
+      i {
+        font-size: 1.1rem;
+      }
+
+      &:hover {
+        box-shadow: 0 0 8px rgba(0,0,0,0.15);
+      }
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      border-color: #ffc107;
+      color: #212529;
+
+      &:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+        color: #fff;
+      }
+    }
+
+    .btn-success {
+      background-color: #198754;
+      border-color: #198754;
+      color: #fff;
+
+      &:hover {
+        background-color: #157347;
+        border-color: #146c43;
+      }
+    }
+
+    .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+      color: #fff;
+
+      &:hover {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+      }
+    }
+  }
+
+  // Tableau principal
+  table.table {
+    margin-top: 1rem;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+
+    thead.table-dark {
+      background-color: #343a40;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+
+      th {
+        padding: 0.75rem 1rem;
+        border-bottom: 3px solid #495057;
+      }
+    }
+
+    tbody {
+      tr:hover {
+        background-color: #f8f9fa;
+      }
+
+      td {
+        padding: 0.6rem 1rem;
+        vertical-align: middle;
+
+        &:nth-child(-n+6) {
+          text-align: center;
+          color: #444;
+        }
+
+        &:last-child {
+          text-align: center;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    // Style aligné à droite pour prix (monétaires)
+    td:nth-child(6) {
+      text-align: right;
+      font-weight: 600;
+      color: #0d6efd;
+    }
+
+    // Boutons d'action
+    button.btn-sm {
+      font-size: 0.85rem;
+      padding: 0.28rem 0.45rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+
+      &.btn-outline-primary:hover {
+        background-color: #0d6efd;
+        color: #fff;
+      }
+
+      &.btn-outline-success:hover {
+        background-color: #198754;
+        color: #fff;
+      }
+
+      &.btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff;
+      }
+
+      i {
+        pointer-events: none;
+      }
+    }
+  }
+
+  // Zone pagination + sélection page size
+  .d-flex.justify-content-between.align-items-center.mt-3 {
+    nav {
+      ul.pagination {
+        margin: 0;
+        display: flex;
+        gap: 0.3rem;
+
+        .page-item {
+          &.disabled button.page-link,
+          &.disabled span.page-link {
+            color: #6c757d;
+            cursor: not-allowed;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+          }
+
+          .page-link {
+            border: 1px solid #dee2e6;
+            color: #0d6efd;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s, color 0.2s;
+
+            &:hover:not(:disabled) {
+              background-color: #0d6efd;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    select.form-select.w-auto {
+      width: auto;
+      min-width: 100px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      border: 1.5px solid #ced4da;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
+        outline: none;
+      }
+    }
+  }
+}

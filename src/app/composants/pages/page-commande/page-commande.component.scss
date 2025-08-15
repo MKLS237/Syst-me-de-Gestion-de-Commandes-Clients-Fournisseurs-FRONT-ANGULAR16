@@ -1,0 +1,269 @@
+.container {
+  margin-top: 1.5rem;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.8rem;
+    text-decoration: underline;
+  }
+
+  // Formulaire de recherche
+  form.mb-3 {
+    .form-label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    input.form-control {
+      border-radius: 6px;
+      border: 1.5px solid #ced4da;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #343a40; // Couleur foncée cohérente avec btn-dark
+        box-shadow: 0 0 5px rgba(52, 58, 64, 0.5);
+        outline: none;
+      }
+    }
+  }
+
+  // Conteneur boutons d'actions
+  .d-flex.justify-content-end.mb-3 {
+    gap: 0.75rem;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+      i {
+        font-size: 1.1rem;
+        pointer-events: none;
+      }
+    }
+
+    // Couleurs dédiées aux boutons
+    .btn-dark {
+      background-color: #343a40;
+      border-color: #343a40;
+      color: #fff;
+
+      &:hover {
+        background-color: #23272b;
+        border-color: #1d2124;
+        box-shadow: 0 0 8px rgba(35, 39, 43, 0.7);
+      }
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      border-color: #ffc107;
+      color: #212529;
+
+      &:hover {
+        background-color: #e0a800;
+        border-color: #d39e00;
+        color: #fff;
+      }
+    }
+
+    .btn-success {
+      background-color: #198754;
+      border-color: #198754;
+      color: #fff;
+
+      &:hover {
+        background-color: #157347;
+        border-color: #146c43;
+      }
+    }
+
+    .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+      color: #fff;
+
+      &:hover {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+      }
+    }
+  }
+
+  // Tableau principal
+  table.table {
+    margin-top: 1rem;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+    background: #fff;
+    box-shadow: 0 0 12px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+
+    thead.table-dark {
+      background-color: #343a40;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+
+      th {
+        padding: 0.75rem 1rem;
+        border-bottom: 3px solid #495057;
+        user-select: none;
+      }
+    }
+
+    tbody {
+      tr {
+        transition: background-color 0.25s ease;
+
+        &:hover {
+          background-color: #f8f9fa;
+        }
+      }
+
+      td {
+        padding: 0.6rem 1rem;
+        vertical-align: middle;
+        text-align: center;
+        color: #444;
+
+        &:nth-child(2) { text-align: left; } // Client à gauche
+        &:nth-child(4) { text-align: left; } // Désignation à gauche
+        &:nth-child(5) { 
+          text-align: right; 
+          font-weight: 600; 
+          color: #0d6efd; 
+          white-space: nowrap;
+        }
+        &:nth-child(9) { white-space: nowrap; } // Boutons actions
+
+        button.btn-sm {
+          font-size: 0.85rem;
+          padding: 0.25rem 0.5rem;
+          border-radius: 4px;
+          transition: background-color 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+
+          i {
+            pointer-events: none;
+          }
+        }
+
+        .btn-success {
+          color: #fff;
+          border: none;
+          background-color: #198754;
+
+          &:hover {
+            background-color: #157347;
+          }
+        }
+
+        .btn-warning {
+          color: #212529;
+          border: none;
+          background-color: #ffc107;
+
+          &:hover {
+            background-color: #e0a800;
+          }
+        }
+
+        .btn-info {
+          color: #fff;
+          border: none;
+          background-color: #0dcaf0;
+
+          &:hover {
+            background-color: #0bb8d9;
+          }
+        }
+
+        .btn-danger {
+          color: #fff;
+          border: none;
+          background-color: #dc3545;
+
+          &:hover {
+            background-color: #bb2d3b;
+          }
+        }
+      }
+    }
+
+    // Ligne si aucune donnée
+    tbody tr td.text-center {
+      font-style: italic;
+      color: #6c757d;
+      padding: 1.5rem 0;
+    }
+  }
+
+  // Pagination + taille page
+  .d-flex.justify-content-between.align-items-center.mt-3 {
+    nav {
+      ul.pagination {
+        margin: 0;
+        display: flex;
+        gap: 0.3rem;
+
+        .page-item {
+          &.disabled button.page-link,
+          &.disabled span.page-link {
+            color: #6c757d;
+            cursor: not-allowed;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+          }
+
+          .page-link {
+            border: 1px solid #dee2e6;
+            color: #343a40;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+
+            &:hover:not(:disabled) {
+              background-color: #343a40;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    select.form-select.w-auto {
+      width: auto;
+      min-width: 100px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      border: 1.5px solid #ced4da;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #343a40;
+        box-shadow: 0 0 5px rgba(52, 58, 64, 0.4);
+        outline: none;
+      }
+    }
+  }
+}

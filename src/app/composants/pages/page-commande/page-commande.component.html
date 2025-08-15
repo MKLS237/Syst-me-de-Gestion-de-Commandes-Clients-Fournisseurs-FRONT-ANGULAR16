@@ -1,0 +1,115 @@
+
+<div class="container mt-4">
+  <h1><u><strong>Liste des commandes</strong></u></h1>
+
+  <!-- Barre de recherche -->
+  <form class="mb-3">
+    <div class="row align-items-center">
+      <div class="col-md-4">
+        <label for="search" class="form-label">Recherche :</label>
+        <input
+          type="text"
+          id="search"
+          class="form-control"
+          [(ngModel)]="searchTerm"
+          name="searchTerm"
+          (ngModelChange)="onSearchChange()"
+          placeholder="Statut, désignation ou date..."
+        />
+      </div>
+    </div>
+  </form>
+
+  <!-- Boutons Importer / Exporter / Ajouter -->
+  <div class="d-flex justify-content-end mb-3 gap-2">
+    <button class="btn btn-dark" (click)="statCom()">
+      <i class="bi bi-dash me-1"></i>statistiques des commandes
+    </button>
+    <input type="file"  hidden #fileInput />
+    <button class="btn btn-warning" (click)="fileInput.click()">
+      <i class="bi bi-upload me-1"></i>Importer
+    </button> 
+    <button class="btn btn-success" (click)="exportCommandes()">
+      <i class="bi bi-download me-1"></i>Exporter
+    </button>
+    <button class="btn btn-primary" (click)="addCommande()">
+      <i class="bi bi-plus-lg me-1"></i>Ajouter
+    </button>
+  </div>
+
+  <!-- Tableau des commandes -->
+  <table class="table table-bordered table-striped mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>Client</th>
+        <th>Quantité</th>
+        <th>Désignation</th>
+        <th>Prix Total</th>
+        <th>Statut</th>
+        <th>Date Commande</th>
+        <th>Date Livraison</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let commande of pagedCommandes; let i = index">
+        <td>{{ (page - 1) * pageSize + i + 1 }}</td>
+      <td>{{ commande.client.nom }}</td>
+
+        <td>{{ getQuantiteTotale(commande) }}</td>
+          <td>{{ commande.designation }}</td>
+        <td>{{ getTotalCommande(commande)  }} FCFA</td>
+        <td>
+          <span class="badge bg-secondary">{{ commande.statut }}</span>
+        </td>
+        <td>{{ commande.dateCommande | date:'dd/MM/yyyy' }}</td>
+        <td>
+          {{ commande.dateLivraison ? (commande.dateLivraison | date:'dd/MM/yyyy') : 'N/A' }}
+        </td>
+        <td class="text-nowrap">
+            <button *ngIf="commande.statut === 'LIVREE'" class="btn btn-sm btn-success me-1"
+  (click)="genererFactureDepuisCommande(commande.id!)" title="Générer facture">
+  <i class="bi bi-receipt"></i>
+</button>
+          <button class="btn btn-sm btn-warning me-1"  (click)="viewCommande(commande.id!)">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        <!--   <button class="btn btn-sm btn-info me-1" (click)="editCommande(commande.id!)">
+            <i class="bi bi-eye"></i>
+          </button>-->
+          <button class="btn btn-sm btn-danger" (click)="deleteCommande(commande.id!)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngIf="pagedCommandes.length === 0">
+        <td colspan="8" class="text-center">Aucune commande trouvée.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center mt-3">
+    <nav>
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="page === 1">
+          <button class="page-link" (click)="page = page - 1; updatePagedCommandes()">Précédent</button>
+        </li>
+        <li class="page-item disabled">
+          <span class="page-link">{{ page }}</span>
+        </li>
+        <li class="page-item" [class.disabled]="page * pageSize >= filteredCommandes.length">
+          <button class="page-link" (click)="page = page + 1; updatePagedCommandes()">Suivant</button>
+        </li>
+      </ul>
+    </nav>
+
+    <select class="form-select w-auto" [(ngModel)]="pageSize" name="pageSize" (change)="onSearchChange()">
+      <option [ngValue]="5">5 par page</option>
+      <option [ngValue]="10">10 par page</option>
+      <option [ngValue]="20">20 par page</option>
+    </select>
+  </div>
+</div>

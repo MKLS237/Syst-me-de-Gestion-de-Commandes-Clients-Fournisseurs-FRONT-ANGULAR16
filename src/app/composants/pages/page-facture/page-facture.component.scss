@@ -1,0 +1,443 @@
+.container {
+  max-width: 1400px;
+
+  h2 {
+    font-weight: 800;
+    color: #0d6efd;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Barre de recherche et filtres */
+  .form-control,
+  .form-select {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    box-shadow: none;
+    transition: all 0.2s ease;
+
+    &:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+    }
+  }
+
+  /* Boutons actions haut */
+  .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    i {
+      vertical-align: middle;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Bloc édition statut */
+  .card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    h5 {
+      font-weight: 700;
+    }
+  }
+
+  /* Tableau */
+  .table {
+    border-radius: 12px;
+    overflow: hidden;
+
+    thead {
+      th {
+        background-color: #0d6efd !important;
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+    }
+
+    tbody {
+      tr {
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #f8f9fa;
+        }
+
+        td {
+          vertical-align: middle;
+        }
+
+        .badge {
+          padding: 0.5em 0.75em;
+          font-size: 0.8rem;
+          border-radius: 6px;
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  /* Boutons actions ligne */
+  .btn-sm {
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  /* Pagination */
+  .pagination {
+    .page-item {
+      .page-link {
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: #0d6efd;
+          color: white;
+        }
+      }
+
+      &.disabled .page-link {
+        opacity: 0.5;
+        pointer-events: none;
+      }
+    }
+  }
+
+  /* Sélecteur pagination */
+  select.form-select.w-auto {
+    border-radius: 8px;
+  }
+}
+
+
+/*.container {
+  margin-top: 1.5rem;
+
+  h2.mb-3 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #333;
+    text-decoration: underline;
+    margin-bottom: 1.5rem;
+  }
+
+  // Barre de recherche et filtres
+  .row.mb-3 {
+    gap: 1rem;
+
+    input.form-control,
+    select.form-select {
+      border-radius: 6px;
+      border: 1.5px solid #ced4da;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 6px rgba(13, 110, 253, 0.5);
+        outline: none;
+      }
+    }
+
+    .d-flex.align-items-center.gap-2 {
+      // Aligner verticalement les filtres statut et date proprement
+      align-items: center;
+    }
+
+    .col-md-4.text-end {
+      button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-weight: 600;
+        border-radius: 6px;
+        padding: 0.45rem 1rem;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+        i {
+          font-size: 1.2rem;
+          pointer-events: none;
+        }
+
+        &.btn-info {
+          background-color: #0dcaf0;
+          border-color: #0dcaf0;
+          color: #fff;
+
+          &:hover {
+            background-color: #0bb8d9;
+            border-color: #0aa7c7;
+            box-shadow: 0 0 8px rgba(13, 202, 240, 0.6);
+          }
+        }
+
+        &.btn-success {
+          background-color: #198754;
+          border-color: #198754;
+          color: #fff;
+
+          &:hover {
+            background-color: #157347;
+            border-color: #146c43;
+            box-shadow: 0 0 8px rgba(25, 135, 84, 0.6);
+          }
+        }
+
+        &.m-1 {
+          margin: 0.25rem;
+        }
+      }
+    }
+  }
+
+  // Carte édition de statut facture
+  .card.p-3 {
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+
+    h5 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #0d6efd;
+    }
+
+    select.form-select {
+      border-radius: 6px;
+      border: 1.5px solid #ced4da;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 6px rgba(13, 110, 253, 0.5);
+        outline: none;
+      }
+    }
+
+    button {
+      margin-right: 0.5rem;
+      padding: 0.45rem 1.15rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+      &.btn-success {
+        background-color: #198754;
+        border-color: #198754;
+        color: #fff;
+
+        &:hover {
+          background-color: #157347;
+          box-shadow: 0 0 8px rgba(25, 135, 84, 0.6);
+        }
+      }
+
+      &.btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+
+        &:hover {
+          background-color: #5c636a;
+          box-shadow: 0 0 8px rgba(108, 117, 125, 0.6);
+        }
+      }
+    }
+  }
+
+  // Tableau des factures
+  table.table {
+    margin-top: 1rem;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+    background: #fff;
+    box-shadow: 0 0 14px rgba(0,0,0,0.06);
+    border-radius: 8px;
+    overflow: hidden;
+
+    thead.table-dark {
+      background-color: #343a40;
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+
+      th {
+        padding: 0.75rem 1rem;
+        border-bottom: 3px solid #495057;
+        user-select: none;
+      }
+    }
+
+    tbody {
+      tr {
+        transition: background-color 0.25s ease;
+
+        &:hover {
+          background-color: #f8f9fa;
+        }
+      }
+
+      td {
+        padding: 0.6rem 1rem;
+        vertical-align: middle;
+        text-align: center;
+        color: #444;
+
+        &:nth-child(2) {
+          text-align: left;
+          font-weight: 600;
+          color: #212529;
+        }
+
+        &:nth-child(3) {
+          text-align: right;
+          font-weight: 700;
+          color: #0d6efd;
+          white-space: nowrap;
+        }
+
+        &:nth-child(6) {
+          white-space: nowrap;
+          text-align: center;
+        }
+
+        button.btn-sm {
+          font-size: 0.85rem;
+          padding: 0.3rem 0.5rem;
+          border-radius: 4px;
+          transition: background-color 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+
+          i {
+            pointer-events: none;
+          }
+        }
+
+        .btn-warning {
+          color: #212529;
+          background-color: #ffc107;
+          border: none;
+
+          &:hover {
+            background-color: #e0a800;
+            color: #fff;
+          }
+        }
+
+        .btn-info {
+          color: #fff;
+          background-color: #0dcaf0;
+          border: none;
+
+          &:hover {
+            background-color: #0bb8d9;
+          }
+        }
+
+        .btn-primary {
+          color: #fff;
+          background-color: #0d6efd;
+          border: none;
+
+          &:hover {
+            background-color: #0b5ed7;
+          }
+        }
+
+        .btn-danger {
+          color: #fff;
+          background-color: #dc3545;
+          border: none;
+
+          &:hover {
+            background-color: #bb2d3b;
+          }
+        }
+      }
+    }
+
+    // Ligne "Aucune facture trouvée"
+    tbody tr td.text-center {
+      font-style: italic;
+      color: #6c757d;
+      padding: 1.5rem 0;
+    }
+  }
+
+  // Pagination et taille page
+  .d-flex.justify-content-between.align-items-center.mt-3 {
+    nav {
+      ul.pagination {
+        margin: 0;
+        display: flex;
+        gap: 0.3rem;
+
+        .page-item {
+          &.disabled button.page-link,
+          &.disabled span.page-link {
+            color: #6c757d;
+            cursor: not-allowed;
+            background-color: #e9ecef;
+            border-color: #dee2e6;
+          }
+
+          .page-link {
+            border: 1px solid #dee2e6;
+            color: #343a40;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+
+            &:hover:not(:disabled) {
+              background-color: #343a40;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    select.form-select.w-auto {
+      width: auto;
+      min-width: 100px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      border: 1.5px solid #ced4da;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 6px rgba(13, 110, 253, 0.5);
+        outline: none;
+      }
+    }
+  }
+}
+ */

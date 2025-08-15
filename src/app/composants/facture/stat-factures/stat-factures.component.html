@@ -1,0 +1,86 @@
+ <button type="button" class="btn btn-danger m-2" (click)="cancel()">
+        <i class="bi bi-x-circle me-1"></i>Retour au tableau des factures
+      </button>
+<div class="container mt-4" *ngIf="!isLoading; else loading">
+  <!-- Cards des statistiques -->
+  <div class="row g-4 text-center">
+    <!-- Total Factures -->
+    <div class="col-12 col-md-6 col-lg-3" *ngIf="stats">
+      <div class="card border-primary shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-receipt fs-2 text-primary"></i>
+          <h5 class="card-title mt-2">Total Factures</h5>
+          <p class="card-text fs-4 fw-bold">{{ stats.nombreTotal }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Montant Payées -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card border-success shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-check-circle fs-2 text-success"></i>
+          <h5 class="card-title mt-2">Payées</h5>
+          <p class="card-text fs-5 fw-bold text-success">
+            {{ stats.montantTotalPayees | number:'1.0-0' }} FCFA
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Partiellement Payées -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card border-warning shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-exclamation-circle fs-2 text-warning"></i>
+          <h5 class="card-title mt-2">Partiellement payées</h5>
+          <p class="card-text fs-5 fw-bold text-warning">
+            {{ stats.montantTotalPartiellementPayees | number:'1.0-0' }} FCFA
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Non Payées -->
+    <div class="col-12 col-md-6 col-lg-3">
+      <div class="card border-danger shadow-sm h-100">
+        <div class="card-body">
+          <i class="bi bi-x-circle fs-2 text-danger"></i>
+          <h5 class="card-title mt-2">Non payées</h5>
+          <p class="card-text fs-5 fw-bold text-danger">
+            {{ stats.montantTotalNonPayees | number:'1.0-0' }} FCFA
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Diagramme circulaire -->
+  <div class="row mt-5 justify-content-center">
+    <div class="col-9 col-md-6 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-header text-center fw-bold">
+          Répartition des factures
+        </div>
+        <div class="card-body">
+     <canvas baseChart
+        [data]="pieChartData"
+        [type]="pieChartType"
+        [options]="pieChartOptions"
+        class="w-100">
+</canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chargement -->
+<ng-template #loading>
+  <div class="text-center mt-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-3">Chargement des statistiques...</p>
+  </div>
+</ng-template>

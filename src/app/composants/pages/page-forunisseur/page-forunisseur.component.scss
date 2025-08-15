@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap');
+
+.container {
+  margin-top: 2rem;
+  font-family: 'Inter', sans-serif;
+  color: #e0e0e0;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  padding: 2rem;
+
+  // Bouton retour futuriste
+  button.btn-danger {
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    padding: 0.6rem 1.75rem;
+    border-radius: 9999px;
+    border: none;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    box-shadow: 0 0 10px #ff416c, 0 0 20px #ff4b2b;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+
+    i {
+      font-size: 1.4rem;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, #ff4b2b, #ff416c);
+      box-shadow: 0 0 18px #ff4b2b, 0 0 30px #ff416c;
+      transform: scale(1.05);
+    }
+  }
+
+  // Grille des cartes statistiques glassmorphism
+  .row.g-4.text-center {
+    margin-bottom: 4rem;
+    gap: 1.8rem;
+
+    > div {
+      flex: 1 1 22%;
+
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: saturate(180%) blur(12px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow:
+          0 4px 30px rgba(0, 0, 0, 0.1),
+          0 0 10px rgba(0, 255, 255, 0.15);
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .card-body {
+          padding: 2rem 1.5rem;
+
+          i {
+            font-size: 3.2rem;
+            margin-bottom: 1.3rem;
+            color: #0ff;
+            filter: drop-shadow(0 0 5px #0ff);
+          }
+
+          .card-title {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            color: #a3f7ff;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-family: 'Poppins', sans-serif;
+          }
+
+          .card-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e0ffff;
+            text-shadow: 0 0 8px #0ff, 0 0 12px #0ffcc9;
+          }
+        }
+
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow:
+            0 6px 40px rgba(0, 255, 255, 0.5),
+            0 0 20px #0ff, 0 0 35px #00fff7;
+        }
+      }
+    }
+  }
+
+  // Carte diagramme circulaire
+  .row.mt-5.justify-content-center {
+    .col-9.col-md-6.col-lg-5 {
+      .card {
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow:
+          0 0 25px rgba(0, 255, 255, 0.15),
+          inset 0 0 25px rgba(255, 255, 255, 0.1);
+        color: #bffeff;
+        padding: 2rem 1.75rem;
+
+        .card-header {
+          font-weight: 700;
+          font-size: 1.5rem;
+          color: #00eaff;
+          text-align: center;
+          border-bottom: none;
+          margin-bottom: 2rem;
+          letter-spacing: 0.05em;
+          font-family: 'Poppins', sans-serif;
+        }
+
+        .card-body {
+          canvas {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: 320px !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Loader et message
+  .text-center.mt-5 {
+    margin-top: 5rem;
+    color: #00fff7;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+
+    .spinner-border {
+      width: 4.5rem;
+      height: 4.5rem;
+      border: 0.4rem solid rgba(0, 255, 255, 0.2);
+      border-top-color: #00ffff;
+      animation: spin 1s linear infinite;
+      filter: drop-shadow(0 0 5px #00ffff);
+    }
+
+    p {
+      margin-top: 1.3rem;
+      font-size: 1.25rem;
+      letter-spacing: 0.07em;
+      text-shadow: 0 0 6px #00ffff;
+    }
+  }
+}
+
+// Animation spinner
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,48 @@
+<div class="container mt-4" *ngIf="commande">
+  <h2>Détails de la commande #{{ commande.id }}</h2>
+
+  <div *ngIf="message" class="alert alert-info mt-2">{{ message }}</div>
+
+  <form (ngSubmit)="updateCommande()">
+    <div class="mb-3">
+      <label class="form-label">Client :</label>
+      <input class="form-control" [value]="commande.client" disabled />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Désignation :</label>
+      <input class="form-control" [(ngModel)]="commande.designation" name="designation" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Quantité :</label>
+      <input type="number" class="form-control" [(ngModel)]="commande.quantite" name="quantite" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Statut :</label>
+      <select class="form-select" [(ngModel)]="commande.statut" name="statut" >
+        <option *ngFor="let statut of statutOptions" [value]="statut">{{ statut }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Date de commande :</label>
+      <input class="form-control" [value]="commande.dateCommande | date:'dd/MM/yyyy'" disabled />
+    </div>
+
+    <div class="mb-3" *ngIf="commande.dateLivraison">
+      <label class="form-label">Date de livraison :</label>
+      <input class="form-control" [value]="commande.dateLivraison | date:'dd/MM/yyyy'" disabled />
+    </div>
+
+    <button class="btn btn-success" type="submit">Mettre à jour</button>
+    <button class="btn btn-secondary ms-2" (click)="goBack()">Retour</button>
+  </form>
+
+  <div *ngIf="facture" class="alert alert-success mt-4">
+    ✅ Facture générée - Total : {{ facture.montantTotal | currency:'XAF' }}
+    <br />
+    Statut de paiement : {{ facture.statut }}
+  </div>
+</div>
