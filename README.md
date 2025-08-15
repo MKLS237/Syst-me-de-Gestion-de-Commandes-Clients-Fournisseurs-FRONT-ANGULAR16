@@ -1,10 +1,10 @@
 
-![alt text](src/assets/client.png),
-![alt text](src/assets/addC.png),
-![alt text](src/assets/Com.png),
-![alt text](src/assets/.png),
-# Anular16Commandes
 
+<img width="1917" height="857" alt="Capture d’écran 2025-08-06 212358" src="https://github.com/user-attachments/assets/e87ad870-2e28-473d-be51-a4c904d65772" />
+<img width="1895" height="838" alt="client" src="https://github.com/user-attachments/assets/83be0ab9-5ab0-4b1e-871d-78ea2c7b610f" />
+<img width="1887" height="837" alt="Com" src="https://github.com/user-attachments/assets/c150c571-f807-4030-bc73-1119459bf877" />
+<img width="1906" height="827" alt="fac" src="https://github.com/user-attachments/assets/e42dafdf-72d7-464a-b9aa-6c03639e2ab0" />
+ Anular16Commandes
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
 
 ## Development server
