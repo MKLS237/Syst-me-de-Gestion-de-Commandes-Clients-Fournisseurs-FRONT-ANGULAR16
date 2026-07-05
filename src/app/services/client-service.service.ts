@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { Client, Statistiques } from '../models/client.model';
 import { Commande } from '../models/commande.model';
 import { Facture } from '../models/facture.model';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({ providedIn: 'root' })
 export class ClientService {
-  private baseUrl = 'http://localhost:8081/api/clients';
+  private readonly baseUrl = `${environment.apiUrl}/clients`;
 
   constructor(private http: HttpClient) {}
 

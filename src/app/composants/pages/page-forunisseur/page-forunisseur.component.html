@@ -1,61 +1,137 @@
-<div class="container mt-3">
-  <h3>Gestion des Fournisseurs</h3>
-  <form (ngSubmit)="save()" class="row g-3 mb-3">
-    <div class="col-md-4"><input [(ngModel)]="selectedFournisseur.nom" name="nom" placeholder="Nom" class="form-control" required></div>
-    <div class="col-md-4"><input [(ngModel)]="selectedFournisseur.adresse" name="adresse" placeholder="Adresse" class="form-control"></div>
-    <div class="col-md-4"><input [(ngModel)]="selectedFournisseur.telephone" name="telephone" placeholder="Téléphone" class="form-control" required></div>
-    <div class="col-md-4"><input [(ngModel)]="selectedFournisseur.email" name="email" placeholder="Email" class="form-control"></div>
-    <div class="col-md-4"><input [(ngModel)]="selectedFournisseur.entreprise" name="entreprise" placeholder="Entreprise" class="form-control"></div>
-    <div class="col-md-4">
-      <button type="submit" class="btn btn-primary me-2"><i class="bi bi-save me-1"></i> Enregistrer</button>
-      <button type="button" class="btn btn-danger" (click)="cancel()"> <i class="bi bi-x-circle me-1"></i> Annuler</button>
+<section class="business-page">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Achats & approvisionnement</p>
+      <h2>Fournisseurs</h2>
+      <span>Centralisez vos fournisseurs et les produits qu'ils livrent.</span>
     </div>
-  </form>
-
-  <table class="table table-bordered">
-    <thead class="table-light">
-      <tr><th>Nom</th><th>Adresse</th><th>Téléphone</th><th>Email</th><th>Entreprise</th><th>Actions</th></tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let f of fournisseurs">
-        <td>{{ f.nom }}</td>
-        <td>{{ f.adresse }}</td>
-        <td>{{ f.telephone }}</td>
-        <td>{{ f.email }}</td>
-        <td>{{ f.entreprise }}</td>
-        <td>
-          <button class="btn btn-sm btn-primary me-1" (click)="ouvrirProduitsModal(f)">Produits</button>
-          <button class="btn btn-sm btn-info me-1" (click)="edit(f)">Modifier</button>
-          <button class="btn btn-sm btn-danger" (click)="delete(f.id)">Supprimer</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Section des produits du fournisseur -->
-  <div *ngIf="showProduitsSection">
-    <h4 class="mt-4">Produits livrés par {{ selectedFournisseur.nom }}</h4>
-    <form (ngSubmit)="saveProduit()" class="row g-3 mb-3">
-      <div class="col-md-4"><input [(ngModel)]="selectedProduit.nomProduit" name="nomProduit" placeholder="Nom du produit" class="form-control" required></div>
-      <div class="col-md-3"><input type="number" [(ngModel)]="selectedProduit.prixUnitaire" name="prixUnitaire" placeholder="Prix unitaire" class="form-control" required></div>
-      <div class="col-md-3"><input [(ngModel)]="selectedProduit.unite" name="unite" placeholder="Unité (ex: sac, kg...)" class="form-control"></div>
-      <div class="col-md-2"><button type="submit" class="btn btn-success">Ajouter</button></div>
-    </form>
-
-    <table class="table table-sm table-bordered">
-      <thead><tr><th>Unité</th><th>Nom produit</th><th>Prix unitaire</th><th>Actions</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let p of produits">
-            <td>{{ p.unite }}</td>
-          <td>{{ p.nomProduit }}</td>
-          <td>{{ p.prixUnitaire }}</td>
-          
-          <td>
-            <button class="btn btn-sm btn-info me-1" (click)="editProduit(p)">Modifier</button>
-            <button class="btn btn-sm btn-danger" (click)="deleteProduit(p.id)">Supprimer</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <button class="btn btn-primary" type="button" (click)="cancel()">
+      <i class="bi bi-plus-lg me-1"></i>
+      Nouveau fournisseur
+    </button>
   </div>
-</div>
+
+  <div class="content-grid">
+    <article class="panel supplier-form">
+      <div class="panel-title">
+        <h3>{{ isEdit ? 'Modifier le fournisseur' : 'Ajouter un fournisseur' }}</h3>
+        <span>Informations administratives</span>
+      </div>
+
+      <form (ngSubmit)="saveFournisseur()" class="form-grid">
+        <input [(ngModel)]="selectedFournisseur.nom" name="nom" placeholder="Nom" class="form-control" required>
+        <input [(ngModel)]="selectedFournisseur.entreprise" name="entreprise" placeholder="Entreprise" class="form-control">
+        <input [(ngModel)]="selectedFournisseur.telephone" name="telephone" placeholder="Téléphone" class="form-control" required>
+        <input [(ngModel)]="selectedFournisseur.email" name="email" placeholder="Email" class="form-control">
+        <input [(ngModel)]="selectedFournisseur.adresse" name="adresse" placeholder="Adresse" class="form-control wide">
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check2 me-1"></i>
+            {{ isEdit ? 'Mettre à jour' : 'Enregistrer' }}
+          </button>
+          <button type="button" class="btn btn-light" (click)="cancel()">Annuler</button>
+        </div>
+      </form>
+    </article>
+
+    <article class="panel supplier-products" *ngIf="showProduitsSection">
+      <div class="panel-title">
+        <h3>Produits de {{ selectedFournisseur.nom }}</h3>
+        <span>{{ produits.length }} produit(s) associé(s) - le nom doit correspondre à la désignation vendue</span>
+      </div>
+
+      <form (ngSubmit)="saveProduit()" class="form-grid compact">
+        <input [(ngModel)]="selectedProduit.nomProduit" name="nomProduit" placeholder="Désignation / nom du produit" class="form-control" required>
+        <input type="number" [(ngModel)]="selectedProduit.prixUnitaire" name="prixUnitaire" placeholder="Prix d'achat" class="form-control" required>
+        <input [(ngModel)]="selectedProduit.unite" name="unite" placeholder="Unité" class="form-control">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-plus-lg me-1"></i>
+          {{ selectedProduit.id ? 'Modifier' : 'Ajouter' }}
+        </button>
+      </form>
+
+      <div class="table-responsive mt-3">
+        <table class="table app-table align-middle">
+          <thead>
+            <tr>
+              <th>Produit</th>
+              <th>Unité</th>
+              <th class="text-end">Prix d'achat</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of produits">
+              <td><strong>{{ p.nomProduit }}</strong></td>
+              <td>{{ p.unite || '-' }}</td>
+              <td class="text-end">{{ p.prixUnitaire | number:'1.0-0' }} FCFA</td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-light me-1" (click)="editProduit(p)" type="button">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteProduit(p.id)" type="button">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="produits.length === 0">
+              <td colspan="4" class="empty-state">Aucun produit enregistré pour ce fournisseur.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+
+  <article class="panel mt-3">
+    <div class="toolbar">
+      <div>
+        <h3>Liste des fournisseurs</h3>
+        <span>{{ filteredFournisseurs.length }} fournisseur(s)</span>
+      </div>
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()" placeholder="Rechercher fournisseur..." class="form-control">
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table app-table align-middle">
+        <thead>
+          <tr>
+            <th>Fournisseur</th>
+            <th>Entreprise</th>
+            <th>Téléphone</th>
+            <th>Email</th>
+            <th>Adresse</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let f of filteredFournisseurs">
+            <td><strong>{{ f.nom || 'Fournisseur sans nom' }}</strong></td>
+            <td>{{ f.entreprise || '-' }}</td>
+            <td>{{ f.telephone }}</td>
+            <td>{{ f.email || '-' }}</td>
+            <td>{{ f.adresse || '-' }}</td>
+            <td class="text-end text-nowrap">
+              <button class="btn btn-sm btn-primary me-1" (click)="ouvrirProduitsModal(f)" type="button">
+                <i class="bi bi-box-seam me-1"></i> Produits
+              </button>
+              <button class="btn btn-sm btn-light me-1" (click)="edit(f)" type="button">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="delete(f.id)" type="button">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="filteredFournisseurs.length === 0">
+            <td colspan="6" class="empty-state">Aucun fournisseur trouvé.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>

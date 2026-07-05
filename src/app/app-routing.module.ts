@@ -27,6 +27,11 @@ const routes: Routes = [
     component:DashboardComponent,
     children: [
       {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'statistiques'
+      },
+      {
         path: 'clients',
         component: PageClientComponent
       },

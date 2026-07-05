@@ -1,75 +1,109 @@
-<div class="dashboard-container container my-4">
-  <!-- Titre principal -->
-  <h2 class="dashboard-title text-center mb-5">Tableau de Bord </h2>
+<section class="dashboard-page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">Pilotage commercial</p>
+      <h2>Vue globale</h2>
+      <span>Suivi en temps réel des ventes, livraisons, factures et clients.</span>
+    </div>
+    <button type="button" class="btn btn-outline-primary" (click)="loadStats()">
+      <i class="bi bi-arrow-clockwise me-1"></i>
+      Actualiser
+    </button>
+  </div>
 
-  <div class="row g-4">
-    <!-- Statistiques principales -->
-    <div class="col-6 col-md-2" *ngFor="let stat of stats">
-      <div class="stat-card shadow-sm text-center">
-        <i [class]="stat.icon + ' stat-icon'"></i>
-        <h6 class="stat-title">{{ stat.title }}</h6>
-        <p class="stat-value">{{ stat.value }}</p>
-      </div>
+  <div *ngIf="hasError" class="alert alert-danger d-flex align-items-center justify-content-between">
+    <span>Impossible de charger les statistiques. Vérifie que le backend est démarré.</span>
+    <button type="button" class="btn btn-sm btn-danger" (click)="loadStats()">Réessayer</button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-panel">
+    <div class="spinner-border text-primary" role="status"></div>
+    <span>Chargement du tableau de bord...</span>
+  </div>
+
+  <ng-container *ngIf="!isLoading && !hasError">
+    <div class="kpi-grid">
+      <article class="kpi-card" *ngFor="let stat of stats">
+        <div class="kpi-icon">
+          <i [class]="stat.icon"></i>
+        </div>
+        <div>
+          <span>{{ stat.title }}</span>
+          <strong>{{ stat.value | number:'1.0-0' }}</strong>
+        </div>
+      </article>
     </div>
 
-    <!-- Livraison cercle -->
-    <div class="col-md-4">
-      <div class="card delivery-card shadow-sm text-center p-4">
-        <h5 class="text-success mb-3">Livraison effective</h5>
+    <div class="analytics-grid">
+      <article class="panel delivery-panel">
+        <div class="panel-heading">
+          <div>
+            <span>Livraison</span>
+            <h3>Taux de commandes livrées</h3>
+          </div>
+          <strong>{{ deliveryPercent }}%</strong>
+        </div>
+
         <div class="progress-circle">
-          <svg width="120" height="120">
-            <circle r="50" cx="60" cy="60" stroke="#e6e6e6" stroke-width="12" fill="none" />
-            <circle r="50" cx="60" cy="60"
+          <svg width="132" height="132" viewBox="0 0 120 120">
+            <circle r="50" cx="60" cy="60" stroke="#e6eaf2" stroke-width="12" fill="none" />
+            <circle
+              r="50"
+              cx="60"
+              cy="60"
               [attr.stroke-dasharray]="circumference"
               [attr.stroke-dashoffset]="circumference * (1 - deliveryPercent / 100)"
-              stroke="#28a745" stroke-width="12" fill="none"
-              transform="rotate(-90 60 60)" />
+              stroke="#22c55e"
+              stroke-linecap="round"
+              stroke-width="12"
+              fill="none"
+              transform="rotate(-90 60 60)"
+            />
           </svg>
           <div class="circle-text">{{ deliveryPercent }}%</div>
         </div>
-        <p class="text-danger mt-3">Non livrées : {{ livraisonStats.livraisonsNonEffectuees }}</p>
-        <p class="text-success">Effectuées : {{ livraisonStats.livraisonsEffectuees }}</p>
-      </div>
-    </div>
 
-    <!-- Graphique des ventes -->
-    <div class="col-md-8">
-      <div class="card shadow-sm p-4">
-        <h5 class="mb-3">Graphique des ventes</h5>
-        <canvas id="barChart" height="280"></canvas>
-      </div>
-    </div>
+        <div class="delivery-stats">
+          <span><i class="bi bi-check-circle text-success"></i> {{ livraisonStats.livraisonsEffectuees }} effectuées</span>
+          <span><i class="bi bi-exclamation-circle text-danger"></i> {{ livraisonStats.livraisonsNonEffectuees }} non livrées</span>
+        </div>
+      </article>
 
-    <!-- Graphique évolution -->
-    <div class="col-md-6">
-      <div class="card shadow-sm p-4">
-        <h5 class="mb-3">Évolution des Commandes et Factures</h5>
-        <canvas id="lineChart" height="200"></canvas>
-      </div>
-    </div>
+      <article class="panel chart-panel wide">
+        <div class="panel-heading">
+          <div>
+            <span>Ventes</span>
+            <h3>Chiffre d'affaires par jour</h3>
+          </div>
+        </div>
+        <div class="chart-box">
+          <canvas id="barChart"></canvas>
+        </div>
+      </article>
 
-    <!-- Graphique Doughnut -->
-    <div class="col-md-6">
-      <div class="card shadow-sm p-4">
-        <h5 class="mb-3">Répartition des livraisons</h5>
-        <canvas id="doughnutChart" height="200"></canvas>
-      </div>
-    </div>
+      <article class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <span>Tendance</span>
+            <h3>Commandes et factures</h3>
+          </div>
+        </div>
+        <div class="chart-box">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </article>
 
-    <!-- Clients fidèles -->
-    <div class="col-md-4">
-      <div class="card shadow-sm p-4">
-        <h5 class="mb-3">Les clients fidèles</h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex align-items-center" *ngFor="let client of bestClients">
-            <img src="https://via.placeholder.com/40" class="rounded-circle me-3" />
-            <div>
-              <strong>{{ client.name }}</strong><br />
-              <small>{{ client.total | currency:'XAF' }}</small>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <article class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <span>Répartition</span>
+            <h3>Livraisons</h3>
+          </div>
+        </div>
+        <div class="chart-box">
+          <canvas id="doughnutChart"></canvas>
+        </div>
+      </article>
     </div>
-  </div>
-</div>
+  </ng-container>
+</section>

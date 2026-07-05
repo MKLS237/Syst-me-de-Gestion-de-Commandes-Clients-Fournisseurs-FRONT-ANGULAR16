@@ -2,7 +2,7 @@ import { Client } from "./client.model";
 
 export interface Commande {
   id?: number;
-  client: Client;
+  client?: Client;
   designation: string;
   quantite: number;
   prixUnitaire: number;

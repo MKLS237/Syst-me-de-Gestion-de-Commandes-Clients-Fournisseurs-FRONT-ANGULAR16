@@ -20,7 +20,7 @@ export class PageCommandeComponent implements OnInit {
   pagedCommandes: Commande[] = [];
   searchTerm: string = '';
   page: number = 1;
-  pageSize: number = 7;
+  pageSize: number = 8;
 
   constructor(
     private commandeService: CommandeService,

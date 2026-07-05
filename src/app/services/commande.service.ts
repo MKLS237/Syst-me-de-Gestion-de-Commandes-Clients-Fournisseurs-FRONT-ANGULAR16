@@ -2,13 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Commande } from '../models/commande.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommandeService {
 
-  private baseUrl = 'http://localhost:8081/api/commandes';
+  private readonly baseUrl = `${environment.apiUrl}/commandes`;
 
   constructor(private http: HttpClient) {}
 

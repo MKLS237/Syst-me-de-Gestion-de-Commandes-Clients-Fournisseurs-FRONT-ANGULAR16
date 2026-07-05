@@ -1,75 +1,192 @@
-.dashboard-container {
-  max-width: 1400px;
+.dashboard-page {
+  display: grid;
+  gap: 1.25rem;
+}
 
-  .dashboard-title {
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  h2,
+  p {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.65rem;
     font-weight: 800;
-    color: #0d6efd;
-    letter-spacing: 1px;
+  }
+
+  span {
+    color: var(--app-muted);
+  }
+}
+
+.eyebrow {
+  color: var(--app-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.loading-panel,
+.panel,
+.kpi-card {
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
+}
+
+.loading-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  min-height: 220px;
+  color: var(--app-muted);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+
+  span,
+  strong {
+    display: block;
+  }
+
+  span {
+    color: var(--app-muted);
+    font-size: 0.78rem;
+    font-weight: 800;
     text-transform: uppercase;
   }
 
-  .stat-card {
-    background: linear-gradient(135deg, #0d6efd, #0a58ca);
-    border-radius: 12px;
-    padding: 1rem;
-    color: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  strong {
+    margin-top: 0.25rem;
+    font-size: 1.45rem;
+  }
+}
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
+.kpi-icon {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--app-radius);
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--app-primary);
+  font-size: 1.25rem;
+}
 
-    .stat-icon {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-    }
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 1rem;
+}
 
-    .stat-title {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
+.panel {
+  min-width: 0;
+  padding: 1rem;
+}
 
-    .stat-value {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  span {
+    color: var(--app-muted);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
-  .delivery-card {
-    .progress-circle {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 1rem;
-
-      svg {
-        transform: rotate(0deg);
-      }
-
-      .circle-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-weight: bold;
-        font-size: 1.5rem;
-        color: #28a745;
-      }
-    }
+  h3 {
+    margin: 0.2rem 0 0;
+    font-size: 1rem;
+    font-weight: 800;
   }
 
-  .card {
-    border-radius: 12px;
-    border: none;
+  strong {
+    color: #22c55e;
+    font-size: 1.6rem;
+  }
+}
+
+.delivery-panel {
+  display: grid;
+  align-content: start;
+}
+
+.progress-circle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0.75rem auto 1rem;
+}
+
+.circle-text {
+  position: absolute;
+  color: #16a34a;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.delivery-stats {
+  display: grid;
+  gap: 0.55rem;
+  color: var(--app-muted);
+  font-weight: 650;
+}
+
+.chart-panel.wide {
+  min-height: 340px;
+}
+
+.chart-box {
+  position: relative;
+  min-height: 280px;
+}
+
+.chart-box canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 1200px) {
+  .kpi-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .list-group-item {
-    border: none;
-    padding: 0.75rem 0;
-    background: transparent;
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-    &:hover {
-      background: #f8f9fa;
-    }
+@media (max-width: 700px) {
+  .page-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
   }
 }

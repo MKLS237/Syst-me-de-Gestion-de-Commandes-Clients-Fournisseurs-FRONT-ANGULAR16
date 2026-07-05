@@ -15,6 +15,7 @@
     <div class="mb-3">
       <label class="form-label">Désignation :</label>
       <input type="text" class="form-control" [(ngModel)]="newCommande.designation" name="designation" required>
+      <small class="text-muted">Cette désignation doit correspondre au nom du produit fournisseur pour calculer le bénéfice.</small>
     </div>
 
   <div class="row">
@@ -24,7 +25,7 @@
   </div>
 
   <div class="col-md-4 mb-3">
-    <label class="form-label">Prix unitaire :</label>
+    <label class="form-label">Prix de vente unitaire :</label>
     <input type="number" class="form-control" [(ngModel)]="newCommande.prixUnitaire" name="prixUnitaire" min="0" required>
   </div>
 
